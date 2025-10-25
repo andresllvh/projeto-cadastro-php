@@ -1,79 +1,82 @@
-    <!--
-        Projeto Prático - Programação Web
-        Sistema de Cadastro de Usuários
-        Desenvolvido por: André Laureano e Felipe Gabriel
-        Este arquivo contém a interface principal do sistema (formulário e listagem)
-    -->
+<!--
+    Projeto Prático - Programação Web
+    Sistema de Cadastro de Usuários
+    Desenvolvido por: André Laureano e Felipe Gabriel
+-->
 
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sistema de Cadastro de Usuários</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Usuários</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
     <header class="bg-primary text-white text-center py-4 mb-4">
         <div>
-            <h1 class= "mb-0">Sistema de Cadastro de Usuários</h1>
+            <h1 class="mb-0">Sistema de Cadastro de Usuários</h1>
             <p class="mb-0">Projeto Prático - Programação Web (ADS)</p>
         </div>
-        </header>
+    </header>
 
-        <!-- Conteúdo principal -->
-    <main class="container">
+    <!-- Conteúdo principal -->
+    <main class="container d-flex flex-column align-items-center">
 
-        <!-- Formulário de Cadastro -->
-        <section class="card shadow-sm mb-5">
-            <div class="card-header bg-primary text-white">
-                <h2 class="h4 mb-0">Cadastrar Novo Usuário</h2>
+        <!-- Formulário Animado -->
+        <form class="form" action="php/inserir.php" method="POST">
+            <p class="title">Cadastro</p>
+            <p class="message">Preencha os campos para cadastrar um novo usuário.</p>
+
+            <!-- Campo Nome Completo -->
+            <label>
+                <input required type="text" class="input" name="nome">
+                <span>Nome Completo</span>
+            </label>
+
+            <!-- Campos Idade e Telefone lado a lado -->
+            <div class="flex">
+                <label>
+                    <input required type="number" class="input" name="idade" min="1" max="120">
+                    <span>Idade</span>
+                </label>
+                <label>
+                    <input required type="tel" class="input" name="telefone">
+                    <span>Telefone</span>
+                </label>
             </div>
 
-            <div class="card-body">
-                <form action="php/inserir.php" method="POST" id="formCadastro">
+            <!-- Campo E-mail -->
+            <label>
+                <input required type="email" class="input" name="email">
+                <span>E-mail</span>
+            </label>
 
-                    <!-- Campo Nome -->
-                    <div class="mb-3">
-                        <label for="nome" class="form-label">Nome Completo</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required placeholder="Digite o nome completo">
-                    </div>
+            <!-- Botão animado -->
+            <button type="submit" class="animated-button">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+                <span class="text">Salvar Cadastro</span>
+                <span class="circle"></span>
+                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+            </button>
+        </form>
 
-                    <!-- Campo E-mail -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" required placeholder="exemplo@email.com">
-                    </div>
-
-                    <!-- Campo Telefone -->
-                    <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="tel" class="form-control" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
-                    </div>
-
-                    <!-- Campo Idade -->
-                    <div class="mb-3">
-                        <label for="idade" class="form-label">Idade</label>
-                        <input type="number" class="form-control" id="idade" name="idade" min="1" max="120" required placeholder="Digite a idade">
-                    </div>
-
-                    <!-- Botão de envio -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Salvar Cadastro</button>
-                    </div>
-                </form>
-            </div>
-            </section>
-
-            <!-- Tabela de usuários cadastrados -->
-        <section class="card shadow-sm mb-5">
+        <!-- Tabela de Usuários -->
+        <section class="card shadow-sm mb-5 mt-5 w-100">
             <div class="card-header bg-success text-white">
                 <h2 class="h4 mb-0">Usuários Cadastrados</h2>
             </div>
-
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -88,7 +91,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Aqui serão exibidos os usuários cadastrados que vêm do banco -->
                             <tr>
                                 <td colspan="6" class="text-center text-muted py-4">
                                     Nenhum usuário cadastrado ainda.
@@ -103,13 +105,12 @@
     </main>
 
     <!-- Rodapé -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
+    <footer class="bg-dark text-white text-center py-3 mt-5 w-100">
         <div class="container">
-            <p class= "mb-0">Desenvolvido por André Laureano e Felipe Gabriel | ADS - 2025</p>
+            <p class="mb-0">Desenvolvido por André Laureano e Felipe Gabriel | ADS - 2025</p>
         </div>
     </footer>
 
-    <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-    </html>
+</body>
+</html>

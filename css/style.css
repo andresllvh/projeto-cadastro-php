@@ -1,149 +1,214 @@
-/*
-Estilos criados por André Laureano
-Projejeto Prático - Progranação Web
-Sistema de Cadastro de Usuários
-*/
-
-/* Reset básico */
+/* ---------- RESET ---------- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-color: #f8f9fa;
-    min-height: 100vh;
-    display:flex;
-    flex-direction: column;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #eef3ff 0%, #ffffff 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/*Cabeçalho */
-header{
-    background: linear-gradient(135deg), #0d6efd, #0a58ca;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
- }
-
-header h1{
-    font-size: 2rem;
-    font-weight: 600;
+/* ---------- CABEÇALHO ---------- */
+header {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-header p{
-    font-size: 0.9rem;
-    opacity: 0.9;
+header h1 {
+  font-size: 2rem;
+  font-weight: 600;
 }
 
-/* Conteúdo Principal */
-main { 
-    flex: 1;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
-/*Cards*/
-.card{
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    animation: fadeIn 0.4s ease-in;
+/* ---------- FORMULÁRIO ---------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.card-header{
-    border-bottom: none;
+.form:hover {
+  transform: translateY(-5px);
 }
 
-.card-body{
-    padding: 2rem;
+.title {
+  font-size: 28px;
+  color: #0d6efd;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Formulário */
-#formCadastro .form-label{
-    font-weight: 500;
-    color: #495057;
+.title::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #0d6efd;
+  animation: pulse 1s linear infinite;
 }
 
-#formCadastro .form-control{
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    padding: 0,75rem;
-    transition: all;
+.message {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
-#formCadastro .form-control:focus{
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.2);
+/* Flex: Idade e Telefone */
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 8px;
 }
 
-#formCadastro .btn-primary{
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 1rem;
-    font-weight:500;
+.form label {
+  position: relative;
+  width: 100%;
 }
 
-#formCadastro .btn-primary:hover{
-    background-color: #0a58ca;
-    transform: translateY(-2px);
+.input {
+  width: 100%;
+  padding: 12px 10px 20px 10px;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  outline: 0;
+  transition: 0.3s ease;
 }
 
-/* Tabela */
-.table-responsive{
-    border-radius: 8px;
-    overflow: hidden;
+.input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: gray;
+  font-size: 0.9em;
+  transition: 0.3s ease;
 }
 
-.table-hover tbody tr:hover{
-    background-color: rgba(13, 110, 253, 0.05);
-    cursor: pointer;
+.input:focus + span,
+.input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+  color: #0d6efd;
 }
 
-/* Botões de acão */
-.btn-sm{
-    border-radius: 6px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-    margin: 0 0.2rem;
+@keyframes pulse {
+  from { transform: scale(0.9); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
 }
 
-/* Rodapé */
-footer{
-    background-color: #212529;
-    margin-top: auto;
+/* ---------- BOTÃO ANIMADO ---------- */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid transparent;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #0d6efd;
+  box-shadow: 0 0 0 2px #0d6efd;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-footer p{
-    font-size: 0.9rem;
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #0d6efd;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Animação simples */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.animated-button .arr-1 { right: 16px; }
+.animated-button .arr-2 { left: -25%; }
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #0d6efd;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Responsividade */
-@media (max-width: 768px){
-    header h1{
-        font-size: 1.5rem;
-    }
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-6px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
 
-    .card-body{
-        padding: 1rem;
-    }
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
 
-    #formCadastro .btn-primary{
-        width: 100%;
-    }
+.animated-button:hover .arr-1 { right: -25%; }
+.animated-button:hover .arr-2 { left: 16px; }
 
-    .table{
-        font-size: 0.9rem;
-    }
+.animated-button:hover .text {
+  transform: translateX(6px);
+  opacity: 1; /* mantém o texto visível */
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+/* ---------- TABELA ---------- */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.card {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ---------- RODAPÉ ---------- */
+footer {
+  background-color: #212529;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+@media (max-width: 768px) {
+  header h1 { font-size: 1.5rem; }
+  .form { width: 90%; padding: 20px; }
+  .flex { flex-direction: column; }
 }
