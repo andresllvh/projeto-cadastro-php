@@ -1,9 +1,3 @@
-<!--
-    Projeto Prático - Programação Web
-    Sistema de Cadastro de Usuários
-    Desenvolvido por: André Laureano e Felipe Gabriel
--->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,6 +10,9 @@
 
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -91,7 +88,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php include("php/listar.php"); ?>
+                            <?php
+                            include('php/conexao.php');
+                            $sql = "SELECT * FROM usuarios ORDER BY id DESC";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()){
+                                    echo "<tr>
+                                            <td>{$row['id']}</td>
+                                            <td>{$row['nome']}</td>
+                                            <td>{$row['email']}</td>
+                                            <td>{$row['telefone']}</td>
+                                            <td>{$row['idade']}</td>
+                                            <td class='text-center'>
+                                                <button class='btn btn-danger btn-sm' onclick='confirmarExclusao({$row['id']})'>
+                                                    Excluir
+                                                </button>
+                                            </td>
+                                          </tr>";
+                                }
+                            } else {
+                                echo "<tr>
+                                        <td colspan='6' class='text-center text-muted py-4'>
+                                            Nenhum usuário cadastrado ainda.
+                                        </td>
+                                      </tr>";
+                            }
+                            $conn->close();
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -107,6 +132,34 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script de Confirmação (SweetAlert Animado) -->
+    <script>
+    function confirmarExclusao(id) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Esta ação não poderá ser desfeita!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar',
+            background: '#ffffff',
+            color: '#0d6efd',
+            backdrop: `
+                rgba(13,110,253,0.1)
+                left top
+                no-repeat
+            `,
+            showClass: { popup: 'animate__animated animate__zoomIn' },
+            hideClass: { popup: 'animate__animated animate__zoomOut' }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'php/excluir.php?id=' + id;
+            }
+        });
+    }
+    </script>
+
 </body>
 </html>
