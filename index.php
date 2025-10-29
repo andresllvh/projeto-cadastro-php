@@ -91,11 +91,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="6" class="text-center text-muted py-4">
-                                    Nenhum usuário cadastrado ainda.
-                                </td>
-                            </tr>
+                            <?php include("php/listar.php"); ?>
                         </tbody>
                     </table>
                 </div>
