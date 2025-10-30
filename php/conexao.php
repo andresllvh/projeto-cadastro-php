@@ -16,6 +16,4 @@ if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
 
-// Caso contrário:
-echo " Conexão com o banco realizada com sucesso!";
 ?>
