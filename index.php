@@ -91,7 +91,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php include("php/listar.php"); ?>
+                               <?php
+                                    include('php/conexao.php');
+                                    $sql = "SELECT * FROM usuarios";
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>
+                                                <td>{$row['id']}</td>
+                                                <td>{$row['nome']}</td>
+                                                <td>{$row['email']}</td>
+                                                <td>{$row['telefone']}</td>
+                                                <td>{$row['idade']}</td>
+                                                 <td class='text-center'>
+                                                <a href='php/editar.php?id={$row['id']}' class='btn btn-warning btn-sm me-2'>Editar</a>
+                                                <a href='php/excluir.php?id={$row['id']}' class='btn btn-danger btn-sm'>Excluir</a>
+                                                </td>
+                                            </tr>";
+                                            }
+                                            
+                                            } else {
+                                                 echo "<tr><td colspan='6' class='text-center text-muted py-4'>Nenhum usuário cadastrado ainda.</td></tr>";
+                                         }
+
+                                         $conn->close();
+                                        ?>
+
                         </tbody>
                     </table>
                 </div>
