@@ -1,31 +1,26 @@
 <?php 
 include('conexao.php');
 
-//Verifiacr se foi passado um ID na URL
+// Verifica se há ID válido
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo "script>;
-    exit()";
+    echo "<script>alert('ID inválido!'); window.location.href='../index.php';</script>";
+    exit();
 }
+
 $id = $_GET['id'];
 
-// Busca os dados do usuário pelo ID
+// Busca o usuário pelo ID
 $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-//Verifica se o usuário existe
 if ($result->num_rows === 0) {
-    echo "<script>
-            alert('Usuário não encontrado.');
-            window.location.href = '../index.php';
-            </script>";
-    
-    exit;
+    echo "<script>alert('Usuário não encontrado!'); window.location.href='../index.php';</script>";
+    exit();
 }
 
 $usuario = $result->fetch_assoc();
-
 $stmt->close();
 $conn->close();
 ?>
@@ -34,108 +29,210 @@ $conn->close();
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
 
-    <!-- boqtstrap -->
-     <link href="https://cdn.jsdelvr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-     <!-- SweetAlert -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <style>
-            body {
-                background: linear-gradient(135deg, #0B1C3F, #000000);
-                front-family; 'segoe UI', Tahoma, sans-serif;
-                color: #F0C93D;
-                min-height: 100vh;
-                display: flex;
-                justify-content; center;
-                align-items; center;
-                margin: 0;
-            
-            }
+    <style>
+        body {
+            background: linear-gradient(180deg, #F7F9FC 0%, #E6ECF5 100%);
+            font-family: "Inter", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-            .card {
-                background-color: #1B263B;
-                border: 2px solid #F0C93D;
-                border-radius: 16px;
-                width: 100%;
-                max-width: 500px;
-                padding: 2rem;
-                box-shadom 0 8px 25px rgba(0,0,0,0.4);
-                animation: fadeIn 0.6 ease-in-out;
-            }
+        .form {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            width: 380px;
+            border: 2px solid #0d6efd;
+            border-radius: 1.5em;
+            padding: 2em;
+            box-shadow: -10px 0px 0px #0d6efd, -10px 5px 5px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
 
-            .frorm-control {
-                bacground-color: #E9ECEF;
-                border: none;
-                border-radius: 8px;
-                padding: 0.75rem;
-                margin-botto,: 1rem;
+        .form:hover {
+            transform: translateY(-3px);
+            box-shadow: -12px 8px 15px rgba(0, 0, 0, 0.2);
+        }
 
-            }
+        .title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #0d6efd;
+            margin-bottom: 0.5em;
+        }
 
-            .btn-primary {
-                background-color: #F0C93D;
-                color: #0B1C3F;
-                font-weight: 600;
-                border: none;
-                border-radius: 8px;
-                width: 100%;
-                padding: 0.75rem;
-                transition: all 0.3s ease;
-            }
+        label {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1em;
+        }
 
-            .btn-primary: hover {
-                background-collor: #C89B3C;
-                transform: translateY(-2px);
-            }
+        .input {
+            width: 100%;
+            border: 2px solid #0d6efd;
+            border-radius: 0.5em;
+            padding: 0.8em 1em;
+            font-size: 0.95em;
+            color: #212529;
+            background-color: transparent;
+            outline: none;
+            transition: all 0.3s ease;
+        }
 
-            @keyframes fadeln {
-                to{
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+        label span {
+            position: absolute;
+            left: 1em;
+            top: 0.8em;
+            color: #6c757d;
+            font-size: 0.9em;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
 
-            </style>
-            </head>
-            <body>
-                <div class="card">
-                    <div class="card-header"Editar Usuário</div>
-                    <form action="atualizar.php" method="POST">
-                        <input type="hidden" name="id" value="<?=$usuario['id']?>">
+        .input:focus + span,
+        .input:valid + span {
+            top: -10px;
+            left: 12px;
+            background-color: #fff;
+            font-size: 0.75em;
+            color: #0d6efd;
+            padding: 0 5px;
+        }
 
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome Completo</label>
-                            <input type="text" class="form-control" id="nome" name="nome" 
-                            value="<?= htmlspecialchars($usuario['nome']); ?>" required>
-                        </div>
+        .animated-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #0d6efd;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            height: 45px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" name="email" id="email" class="form-control"
-                            value="<?=htmlspecialchars($usuario['email'])?>" <required>
-                        </div>
+        .animated-button:hover {
+            background-color: #004de0;
+            transform: scale(1.03);
+        }
 
-                        <div class="mb-3">
-                            <div class="mb-3">
-                                <label for="telefone" class="form-label">Telefone</label>
-                                 <input type="tel" class="form-control" id="telefone" name="telefone" 
-                                 value="<?= htmlspecialchars($usuario['telefone']); ?>" required>
-                            </div>
+        .btn-secondary {
+            background-color: #E5E7EB;
+            color: #111827;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 90%;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+}
 
-                        <div class="mb-3">
-                            <label for="idade" class="form-label">Idade</label>
-                            <input type="number" name="idade" id"idade" class="form-control"
-                            value="<?=htmlspecialchars($usuario['idade'])?>" <required>>
-                        </div>
+.btn-secondary:hover {
+  background-color: #D1D5DB;
+  transform: scale(1.03);
+  text-decoration: none;
+}
 
-                        <div class+"d-flex justify-content-between">
-                            <a href="../index.php" class="btn btn-secondary">Voltar</a>
-                           <button type="submit" class="btn-primary">Salvar Alterações</button>
-                    </form>
-                </div>
-            </body>
-        </html>
+
+        .animated-button svg {
+            height: 20px;
+            fill: currentColor;
+            transition: all 0.3s ease;
+        }
+
+        .animated-button .arr-1 {
+            transform: translateX(-120%);
+            opacity: 0;
+        }
+
+        .animated-button:hover .arr-1 {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .animated-button:hover .arr-2 {
+            transform: translateX(120%);
+            opacity: 0;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            border-radius: 8px;
+        }
+
+        .animated-button:hover .circle {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="form" action="atualizar.php" method="POST">
+        <p class="title">Editar Usuário</p>
+
+        <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+
+        <label>
+            <input required type="text" class="input" name="nome" value="<?= htmlspecialchars($usuario['nome']); ?>">
+            <span>Nome Completo</span>
+        </label>
+
+        <label>
+            <input required type="email" class="input" name="email" value="<?= htmlspecialchars($usuario['email']); ?>">
+            <span>E-mail</span>
+        </label>
+
+        <label>
+            <input required type="tel" class="input" name="telefone" value="<?= htmlspecialchars($usuario['telefone']); ?>">
+            <span>Telefone</span>
+        </label>
+
+        <label>
+            <input required type="number" class="input" name="idade" value="<?= htmlspecialchars($usuario['idade']); ?>">
+            <span>Idade</span>
+        </label>
+        <div class="d-flex w-100 justify-content-center">
+             <a href="../index.php" class="btn-secondary text-center">Voltar</a>
+            </div>
+        <button type="submit" class="animated-button mt-2">
+            <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+            </svg>
+            <span class="text">Salvar Alterações</span>
+            <span class="circle"></span>
+            <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+            </svg>
+        </button>
+    </form>
+</body>
+</html>

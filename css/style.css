@@ -1,214 +1,152 @@
-/* ---------- RESET ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #eef3ff 0%, #ffffff 100%);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ---------- CABEÇALHO ---------- */
-header {
-  background: linear-gradient(135deg, #0d6efd, #0a58ca);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-header p {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-/* ---------- FORMULÁRIO ---------- */
+/* === FORMULÁRIO ANIMADO === */
 .form {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-  width: 100%;
-  background-color: #fff;
-  padding: 25px 30px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.form:hover {
-  transform: translateY(-5px);
-}
-
-.title {
-  font-size: 28px;
-  color: #0d6efd;
-  font-weight: 600;
-  display: flex;
   align-items: center;
-  gap: 10px;
+  background-color: #fff;
+  width: 380px;
+  border: 2px solid #0d6efd;
+  border-radius: 1.5em;
+  padding: 2em;
+  box-shadow: -10px 0px 0px #0d6efd, -10px 5px 5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.title::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: #0d6efd;
-  animation: pulse 1s linear infinite;
+/* título e texto */
+.form .title {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #0d6efd;
+  margin-bottom: 0.2em;
 }
 
-.message {
-  color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
-  margin-bottom: 5px;
+.form .message {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-bottom: 1.5em;
+  text-align: center;
 }
 
-/* Flex: Idade e Telefone */
-.flex {
-  display: flex;
-  width: 100%;
-  gap: 8px;
-}
-
-.form label {
+/* labels animadas */
+label {
   position: relative;
   width: 100%;
+  margin-bottom: 1em;
 }
 
 .input {
   width: 100%;
-  padding: 12px 10px 20px 10px;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-  outline: 0;
-  transition: 0.3s ease;
+  border: 2px solid #0d6efd;
+  border-radius: 0.5em;
+  padding: 0.8em 1em;
+  font-size: 0.95em;
+  color: #212529;
+  background-color: transparent;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.input + span {
+label span {
   position: absolute;
-  left: 10px;
-  top: 15px;
-  color: gray;
+  left: 1em;
+  top: 0.8em;
+  color: #6c757d;
   font-size: 0.9em;
-  transition: 0.3s ease;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
+/* animação do label subindo */
 .input:focus + span,
 .input:valid + span {
-  top: 30px;
-  font-size: 0.7em;
-  font-weight: 600;
+  top: -10px;
+  left: 12px;
+  background-color: #fff;
+  font-size: 0.75em;
   color: #0d6efd;
+  padding: 0 5px;
 }
 
-@keyframes pulse {
-  from { transform: scale(0.9); opacity: 1; }
-  to { transform: scale(1.6); opacity: 0; }
+/* efeito hover */
+.input:hover {
+  border-color: #004de0;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.2);
 }
 
-/* ---------- BOTÃO ANIMADO ---------- */
+/* botão animado */
 .animated-button {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 16px 36px;
-  border: 4px solid transparent;
-  background-color: inherit;
-  border-radius: 100px;
-  font-weight: 600;
-  color: #0d6efd;
-  box-shadow: 0 0 0 2px #0d6efd;
-  cursor: pointer;
   overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button svg {
-  position: absolute;
-  width: 24px;
-  fill: #0d6efd;
-  z-index: 9;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button .arr-1 { right: 16px; }
-.animated-button .arr-2 { left: -25%; }
-
-.animated-button .circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
   background-color: #0d6efd;
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.animated-button .text {
-  position: relative;
-  z-index: 1;
-  transform: translateX(-6px);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  height: 45px;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .animated-button:hover {
-  box-shadow: 0 0 0 12px transparent;
-  color: #212121;
-  border-radius: 12px;
+  background-color: #004de0;
+  transform: scale(1.03);
 }
 
-.animated-button:hover .arr-1 { right: -25%; }
-.animated-button:hover .arr-2 { left: 16px; }
-
-.animated-button:hover .text {
-  transform: translateX(6px);
-  opacity: 1; /* mantém o texto visível */
+/* ícones da seta animada */
+.animated-button svg {
+  height: 20px;
+  fill: currentColor;
+  transition: all 0.3s ease;
 }
 
-.animated-button:hover .circle {
-  width: 220px;
-  height: 220px;
+.animated-button .arr-1 {
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.animated-button:hover .arr-1 {
+  transform: translateX(0);
   opacity: 1;
 }
 
-/* ---------- TABELA ---------- */
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
+.animated-button:hover .arr-2 {
+  transform: translateX(120%);
+  opacity: 0;
 }
 
-.card {
+.animated-button .circle {
+  position: absolute;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+  border-radius: 8px;
+}
+
+.animated-button:hover .circle {
   width: 100%;
-  max-width: 900px;
 }
 
-/* ---------- RODAPÉ ---------- */
-footer {
-  background-color: #212529;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
+/* flex para idade e telefone lado a lado */
+.flex {
+  display: flex;
+  gap: 10px;
+  width: 100%;
 }
 
-/* ---------- RESPONSIVIDADE ---------- */
-@media (max-width: 768px) {
-  header h1 { font-size: 1.5rem; }
-  .form { width: 90%; padding: 20px; }
-  .flex { flex-direction: column; }
+.flex label {
+  flex: 1;
+}
+
+/* animação ao passar o mouse em todo o form */
+.form:hover {
+  transform: translateY(-3px);
+  box-shadow: -12px 8px 15px rgba(0, 0, 0, 0.2);
 }
