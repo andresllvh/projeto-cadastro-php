@@ -1,9 +1,3 @@
-<!--
-    Projeto Prático - Programação Web
-    Sistema de Cadastro de Usuários
-    Desenvolvido por: André Laureano e Felipe Gabriel
--->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,6 +10,9 @@
 
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -138,6 +135,34 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script de Confirmação (SweetAlert Animado) -->
+    <script>
+    function confirmarExclusao(id) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Esta ação não poderá ser desfeita!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!',
+            cancelButtonText: 'Cancelar',
+            background: '#ffffff',
+            color: '#0d6efd',
+            backdrop: `
+                rgba(13,110,253,0.1)
+                left top
+                no-repeat
+            `,
+            showClass: { popup: 'animate__animated animate__zoomIn' },
+            hideClass: { popup: 'animate__animated animate__zoomOut' }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'php/excluir.php?id=' + id;
+            }
+        });
+    }
+    </script>
+
 </body>
 </html>
