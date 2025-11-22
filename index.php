@@ -19,8 +19,8 @@
     <!-- Cabeçalho -->
     <header class="bg-primary text-white text-center py-4 mb-4">
         <div>
-            <h1 class="mb-0">Sistema de Cadastro de Usuários</h1>
-            <p class="mb-0">Projeto Prático - Programação Web (ADS)</p>
+            <h1 class="mb-0">💪 Iron Force Academia</h1>
+            <p class="mb-0">Sistema de Gestão de Alunos</p>
         </div>
     </header>
 
@@ -29,13 +29,13 @@
 
         <!-- Formulário Animado -->
         <form class="form" action="php/inserir.php" method="POST">
-            <p class="title">Cadastro</p>
-            <p class="message">Preencha os campos para cadastrar um novo usuário.</p>
+            <p class="title">Novo Aluno</p>
+            <p class="message">Preencha os campos para cadastrar um novo aluno.</p>
 
             <!-- Campo Nome Completo -->
             <label>
                 <input required type="text" class="input" name="nome">
-                <span>Nome Completo</span>
+                <span>Nome do Aluno</span>
             </label>
 
             <!-- Campos Idade e Telefone lado a lado -->
@@ -61,7 +61,7 @@
                 <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
                 </svg>
-                <span class="text">Salvar Cadastro</span>
+                <span class="text">Cadastrar Aluno</span>
                 <span class="circle"></span>
                 <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
@@ -72,7 +72,7 @@
         <!-- Tabela de Usuários -->
         <section class="card shadow-sm mb-5 mt-5 w-100">
             <div class="card-header bg-success text-white">
-                <h2 class="h4 mb-0">Usuários Cadastrados</h2>
+                <h2 class="h4 mb-0">Alunos Cadastrados</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -131,7 +131,7 @@
     <!-- Rodapé -->
     <footer class="bg-dark text-white text-center py-3 mt-5 w-100">
         <div class="container">
-            <p class="mb-0">Desenvolvido por André Laureano e Felipe Gabriel | ADS - 2025</p>
+            <p class="mb-0">© 2025 Iron Force Academia - Desenvolvido por André Laureano e Felipe Gabriel | ADS</p>
         </div>
     </footer>
 
@@ -140,7 +140,7 @@
     function confirmarExclusao(id) {
         Swal.fire({
             title: 'Tem certeza?',
-            text: "Esta ação não poderá ser desfeita!",
+            text: "Deseja realmente excluir este aluno?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#0d6efd',

@@ -197,7 +197,7 @@ $conn->close();
 
 <body>
     <form class="form" action="atualizar.php" method="POST">
-        <p class="title">Editar Usuário</p>
+        <p class="title">Editar Aluno</p>
 
         <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
 
